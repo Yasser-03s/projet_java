@@ -37,7 +37,7 @@ public class Combinaison implements Comparable<Combinaison> {
         return cartes.remove(index);
     }
 
-    // On renvoie une copie pour que l'extérieur ne modifie pas la liste directement
+    // on renvoie une copie pour que l'extérieur ne modifie pas la liste directement
     public ArrayList<CarteClan> getCartes() {
         return new ArrayList<CarteClan>(cartes);
     }

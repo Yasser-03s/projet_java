@@ -9,8 +9,7 @@ import com.schottenTotten.model.Carte;
 //import com.schottenTotten.model.CarteTactique;
 import com.schottenTotten.model.Joueur;
 
-// IA très simple : tous ses choix sont aléatoires, et elle tente de revendiquer
-// chaque Borne dont son côté est complet.
+// IA tres simple : tous ses choix sont aleatoires, et elle tente de revendiquer chaque Borne dont son cote est complet
 public class IA implements Joueur {
 
     private String nom;
@@ -51,7 +50,7 @@ public class IA implements Joueur {
             }
         }
 
-        // On ne garde que les cartes qu'on a une chance de pouvoir jouer
+        // on ne garde que les cartes qu'on a une chance de pouvoir jouer
         List<Integer> cartes = new ArrayList<Integer>();
         for (int i = 0; i < main.size(); i++) {
             Carte carte = main.get(i);

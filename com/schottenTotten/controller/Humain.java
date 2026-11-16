@@ -9,7 +9,7 @@ import com.schottenTotten.model.Carte;
 import com.schottenTotten.model.Joueur;
 import com.schottenTotten.view.InterfaceConsole;
 
-// Joueur qui joue au clavier, via la console
+// joueur qui joue au clavier, via la console
 public class Humain implements Joueur {
 
     private String nom;
@@ -17,7 +17,7 @@ public class Humain implements Joueur {
     private ArrayList<Carte> main;
     private InterfaceConsole console;
 
-    // La console existe avant le joueur et peut être partagée (agrégation)
+    // la console existe avant le joueur et peut être partagée (agrégation)
     public Humain(String nom, int numero, InterfaceConsole console) {
         this.nom = nom;
         this.numero = numero;
@@ -40,7 +40,7 @@ public class Humain implements Joueur {
         return main;
     }
 
-    // Le jeu vérifie le coup : s'il est refusé, on nous le redemande
+    // le jeu verifie le coup : s'il est refusé, on nous le redemande
     @Override
     public int[] choisirCoup(List<Borne> bornes, boolean tactiquePermise) {
         console.afficherMain(main);

@@ -1,6 +1,6 @@
 package com.schottenTotten.model;
 
-// Une Borne : une Combinaison par côté (côté 1 = joueur 1, côté 2 = joueur 2)
+// une Borne : une Combinaison par côté (côté 1 = joueur 1, côté 2 = joueur 2)
 public class Borne {
 
     private int numero;
@@ -8,7 +8,7 @@ public class Borne {
     private int gagnant = 0;          // 0 = non revendiquée, sinon 1 ou 2
     private int premierComplet = 0;   // côté qui a complété sa Combinaison en premier
 
-    // Les deux Combinaisons sont créées à l'extérieur et passées au constructeur (agrégation)
+    // les deux Combinaisons sont créées à l'extérieur et passées au constructeur 
     public Borne(int numero, Combinaison combinaison1, Combinaison combinaison2) {
         this.numero = numero;
         cotes = new Combinaison[2];
@@ -54,7 +54,7 @@ public class Borne {
         }
     }
 
-    // Utilisé par les ruses (Stratège, Banshee, Traître)
+    // utilisé par les ruses (Stratège, Banshee, Traître)
     public CarteClan retirer(int cote, int index) {
         if (gagnant != 0) {
             throw new IllegalStateException("Borne " + numero + " : déjà revendiquée");

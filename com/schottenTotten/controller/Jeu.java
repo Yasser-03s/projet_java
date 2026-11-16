@@ -3,7 +3,7 @@ package com.schottenTotten.controller;
 import com.schottenTotten.model.Joueur;
 import com.schottenTotten.view.InterfaceConsole;
 
-// Ce que toutes les variantes ont en commun : deux joueurs, une console, des tours, un gagnant
+// ce que toutes les variantes ont en commun : deux joueurs, une console, des tours, un gagnant
 public abstract class Jeu {
 
     protected Joueur[] joueurs;
@@ -23,6 +23,6 @@ public abstract class Jeu {
         return gagnant;
     }
 
-    // Joue la partie jusqu'à la fin
+    // joue la partie jusqu'à la fin
     public abstract void lancer();
 }

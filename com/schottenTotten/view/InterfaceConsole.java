@@ -9,13 +9,13 @@ import com.schottenTotten.model.Borne;
 import com.schottenTotten.model.Carte;
 import com.schottenTotten.model.CarteClan;
 
-// Affichage et saisie dans le terminal. Ne connaît aucune règle du jeu.
+// affichage et saisie dans le terminal sans aucune règle du jeu
 public class InterfaceConsole {
 
-    // Un seul lecteur pour toute l'application
+    // un seul lecteur pour tout le programme
     private BufferedReader lecteur = new BufferedReader(new InputStreamReader(System.in));
 
-    // ---------- Affichage ----------
+    // ---------- affichage ----------
 
     public void afficherMessage(String message) {
         System.out.println(message);
@@ -23,53 +23,43 @@ public class InterfaceConsole {
 
     public void afficherTour(int numeroTour, String nomJoueur, int numeroJoueur) {
         System.out.println();
-        System.out.println("==============================================");
-        System.out.println("Tour " + numeroTour + " - " + nomJoueur + " (Joueur " + numeroJoueur + ")");
-        System.out.println("==============================================");
+        System.out.println("--- tour " + numeroTour + " : " + nomJoueur + " (joueur " + numeroJoueur + ") ---");
     }
 
+    // une ligne par borne  cartes du joueur 1 [ numero ] cartes du joueur 2
+    // * borne gagnée par le joueur 1  + borne gagnée par le joueur 2
     public void afficherBornes(List<Borne> bornes) {
         for (Borne b : bornes) {
-            System.out.println(formaterCote(b, 1) + " [ " + b.getNumero() + " ]" + marqueGagnant(b) + " " + formaterCote(b, 2));
+            String marque = " ";
+            if (b.getGagnant() == 1) {
+                marque = "*";
+            }
+            if (b.getGagnant() == 2) {
+                marque = "+";
+            }
+            System.out.println(texteCote(b, 1) + "[ " + b.getNumero() + " ]" + marque + " " + texteCote(b, 2));
         }
         System.out.println();
     }
 
-    private String formaterCote(Borne borne, int cote) {
+    // trois places par côté  une place vide s'affiche --
+    private String texteCote(Borne borne, int cote) {
         List<CarteClan> cartes = borne.getCombinaison(cote).getCartes();
         String texte = "";
         for (int i = 0; i < 3; i++) {
-            String carte = "...";
             if (i < cartes.size()) {
-                carte = cartes.get(i).toString();
+                texte = texte + cartes.get(i) + " ";
+            } else {
+                texte = texte + "-- ";
             }
-            texte = texte + cadrer(carte, 4);
         }
         return texte;
-    }
-
-    private String cadrer(String texte, int largeur) {
-        while (texte.length() < largeur) {
-            texte = texte + " ";
-        }
-        return texte;
-    }
-
-    // * = Borne du joueur 1, + = Borne du joueur 2
-    private String marqueGagnant(Borne borne) {
-        if (borne.getGagnant() == 1) {
-            return "*";
-        }
-        if (borne.getGagnant() == 2) {
-            return "+";
-        }
-        return " ";
     }
 
     public void afficherMain(List<Carte> main) {
-        String texte = "Main : ";
+        String texte = "main :";
         for (int i = 0; i < main.size(); i++) {
-            texte = texte + (i + 1) + ")" + main.get(i) + "  ";
+            texte = texte + "  " + (i + 1) + ")" + main.get(i);
         }
         System.out.println(texte);
     }
@@ -77,27 +67,27 @@ public class InterfaceConsole {
     public void afficherVainqueur(String nom) {
         System.out.println();
         if (nom == null) {
-            System.out.println("*** Partie terminée : égalité ***");
+            System.out.println("égalité");
         } else {
-            System.out.println("*** " + nom + " remporte la partie ! ***");
+            System.out.println(nom + " gagne la partie");
         }
     }
 
-    // ---------- Saisie ----------
+    // ---------- saisie ----------
 
+    // redemande tant que la saisie n'est pas un entier entre min et max
     public int lireEntier(String invite, int min, int max) {
         while (true) {
             System.out.print(invite + " [" + min + "-" + max + "] : ");
-            String ligne = lireLigne();
             try {
-                int n = Integer.parseInt(ligne.trim());
+                int n = Integer.parseInt(lireLigne().trim());
                 if (n >= min && n <= max) {
                     return n;
                 }
             } catch (NumberFormatException e) {
-                // on redemande
+                // pas un nombre  on redemande
             }
-            System.out.println("Entrée invalide.");
+            System.out.println("saisie invalide");
         }
     }
 
@@ -106,18 +96,18 @@ public class InterfaceConsole {
         return lireLigne().trim();
     }
 
+    // si l'entrée est fermée on arrête le programme
     private String lireLigne() {
+        String ligne = null;
         try {
-            String ligne = lecteur.readLine();
-            if (ligne != null) {
-                return ligne;
-            }
+            ligne = lecteur.readLine();
         } catch (IOException e) {
-            System.out.println("Erreur de lecture : " + e.getMessage());
+            ligne = null;
         }
-        System.out.println();
-        System.out.println("Fin de l'entrée, arrêt du programme.");
-        System.exit(0);
-        return "";
+        if (ligne == null) {
+            System.out.println("fin de la saisie");
+            System.exit(0);
+        }
+        return ligne;
     }
 }
